@@ -1,0 +1,172 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static here.Keyboard;
+
+namespace here
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Maneger ScreenManeger = new Maneger();
+            Keyboard keyboard = new Keyboard();
+            Arrow arrow = new Arrow();
+            Screen screen = new Screen();
+            while (ScreenManeger.isPlayeAlive)
+            {
+                arrow.move();
+            }
+        }
+    }
+    internal class Keyboard
+    {
+        public Screen screen = new Screen();
+        public bool isKeyTrue = false;
+        public void ToReadKey(ConsoleKey key)
+        {
+            ConsoleKeyInfo c = Console.ReadKey(true);
+            if (c.Key == key)
+                isKeyTrue = true;
+            else
+                isKeyTrue = false;
+
+        }
+        public bool KeyDown(ConsoleKey key)
+        {
+            screen.SetBoard();
+            ToReadKey(key);
+            return isKeyTrue;
+        }
+        public bool KeyUp(ConsoleKey key)
+        {
+            ToReadKey(key);
+            if (!isKeyTrue)
+            {
+                return !isKeyTrue;
+            }else return false;
+        }
+        public bool GetKeyDown(ConsoleKey key)
+        {
+            while (KeyDown(key) == true && !KeyUp(key))
+            {
+                return true;
+            }
+            return false;
+        }
+
+    }
+    //Keyboard finished
+    internal class Arrow
+    {
+        public Maneger ScreenManeger = new Maneger();
+        public Keyboard keyboard = new Keyboard();
+        public void move()
+        {
+            if (keyboard.GetKeyDown(ConsoleKey.W))
+            {
+                Console.WriteLine("Up");
+            }
+            if (keyboard.GetKeyDown(ConsoleKey.S))
+            {
+                Console.WriteLine("Down");
+            }
+            if (keyboard.GetKeyDown(ConsoleKey.A))
+            {
+                Console.WriteLine("Left");
+            }
+            if (keyboard.GetKeyDown(ConsoleKey.D))
+            {
+                Console.WriteLine("Right");
+            }
+        }
+    }
+    internal class Screen
+    {
+        public int[] row = new int[4];
+        public int[] col = new int[30];
+        public char[][] positions = { new char[4], new char[30] };
+        public void SetPosition(int x, int y,char l)
+        {
+            positions[x][y] = l;
+        }
+        public char GetPosition(int x, int y)
+        {
+            return positions[x][y];
+        }
+        public void SetBoard()
+        {
+            ClearBoard();
+            for (int y = 0; y < 28; y++)
+            {
+                for (int x = 0; x < 4; x++)
+                {
+                    if(y > 4)
+                    {
+                        Console.Write("|            {0}             ","" /*GetPosition(x, y)*/);
+                    }
+                    else
+                    {
+                        if (y == 0)
+                        {
+                            Console.Write("|         ");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("*******");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("         ");
+                        }
+                        else if(y == 1)
+                        {
+                            Console.Write("|         ");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write("*******");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("         ");
+                        }
+                        else if(y == 2)
+                        {
+                            Console.Write("|         ");
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.Write("*******");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("         ");
+                        }
+                        else if(y == 3)
+                        {
+                            Console.Write("|         ");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.Write("*******");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("         ");
+                        }
+                        else if(y == 4)
+                        {
+                            Console.Write("|         ");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("*******");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("         ");
+                        }
+                    }
+                }
+                Console.Write("|");
+                Console.WriteLine();
+            }
+        }
+        public void ClearBoard()
+        {
+            Console.Clear();
+        }
+    }
+    //screen finished
+    internal class Maneger
+    {
+        public bool isPlayeAlive = true;
+        public void Death()
+        {
+            isPlayeAlive = false;
+        }
+    }
+}
