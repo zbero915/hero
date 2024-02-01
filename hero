@@ -76,16 +76,19 @@ namespace here
             }
             if (keyboard.GetKeyDown(ConsoleKey.S))
             {
+                CheckArrow();
                 Console.Beep();
                 Console.WriteLine("Down");
             }
             if (keyboard.GetKeyDown(ConsoleKey.A))
             {
+                CheckArrow();
                 Console.Beep();
                 Console.WriteLine("Left");
             }
             if (keyboard.GetKeyDown(ConsoleKey.D))
             {
+                CheckArrow();
                 Console.Beep();
                 Console.WriteLine("Right");
 
