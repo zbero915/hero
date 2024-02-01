@@ -65,26 +65,28 @@ namespace here
     {
         public Maneger ScreenManeger = new Maneger();
         public Keyboard keyboard = new Keyboard();
-        public char[,] arrows = new char[4, 28];
         public void move()
         {
             Screen screen = new Screen();
-            arrows = screen.positions;
             if (keyboard.GetKeyDown(ConsoleKey.W))
             {
                 CheckArrow();
+                Console.Beep();
                 Console.WriteLine("Up");
             }
             if (keyboard.GetKeyDown(ConsoleKey.S))
             {
+                Console.Beep();
                 Console.WriteLine("Down");
             }
             if (keyboard.GetKeyDown(ConsoleKey.A))
             {
+                Console.Beep();
                 Console.WriteLine("Left");
             }
             if (keyboard.GetKeyDown(ConsoleKey.D))
             {
+                Console.Beep();
                 Console.WriteLine("Right");
 
             }
@@ -98,9 +100,9 @@ namespace here
                 {
                     if (screen.GetPosition(2, 20) == 'O')
                     {
-                        arrows[i, j] = 'O';
-                        arrows[i, j + 1] = 'O';
-                        arrows[i, j] = ' ';
+                        screen.positions[i, j] = 'O';
+                        screen.positions[i, j + 1] = 'O';
+                        screen.positions[i, j] = ' ';
                     }
                 }
             }
@@ -152,7 +154,6 @@ namespace here
         {
             ClearBoard();
             Arrow arrow = new Arrow();
-            //arrow.SummonArrow();
             RestartPosition();
             for (int y = 0; y < 28; y++)
             {
